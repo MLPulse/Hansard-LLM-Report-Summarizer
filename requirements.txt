@@ -1,0 +1,13 @@
+# Required libraries for the Hansard-LLM-Report-Summarizer project
+requests
+beautifulsoup4
+langchain
+ollama
+PyPDF2
+pdfplumber
+sentence-transformers
+nltk
+torch
+transformers
+tqdm
+rouge-score
