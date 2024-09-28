@@ -6,11 +6,13 @@ __pycache__/
 venv/
 env/
 
-# Ignore PDF files
-*.pdf
+# Ignore all PDF files in the data directory, but allow .gitkeep
+data/*.pdf
+!data/.gitkeep
 
-# Ignore output directory
-output/
+# Ignore all output files, but allow .gitkeep
+output/*
+!output/.gitkeep
 
 # Ignore any text files containing extracted or generated content
 *.txt
