@@ -35,7 +35,6 @@ Hansard-LLM-Report-Summarizer/
 ```
 
 
-
 ## Installation
 
 ### 1. Clone the repository
@@ -53,7 +52,36 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```bash
 pip install -r requirements.txt
 ```
-    
+
+## Model Management
+This project uses Ollama to manage and run large language models (LLMs) for summarization purposes. Please follow the instructions below to ensure that the required models are available before running the summarization process.
+
+### Required Models
+The following models are used in this project:
+- Mistral 7B
+- Gemma 2 9B
+- LLaMA 3.1 8B
+
+### Loading Models with Ollama
+Before running the summarization, make sure you have the necessary models loaded into Ollama. You can do this by executing the following commands:
+```bash
+# Pull the models using Ollama
+ollama pull mistral-7b
+ollama pull gemma-2-9b
+ollama pull llama-3-1-8b
+```
+To verify that the models are available, you can list all models with:
+```bash
+ollama list
+```
+Ensure that the output includes the models mentioned above. If a model is not available, please pull it using the command provided.
+
+### Troubleshooting Model Loading
+If you encounter issues while loading a model, check the following:
+- **Network Connectivity**: Make sure you are connected to the internet to pull models from Ollama.
+- **Model Version**: Ensure you are using the correct version of the model as required by the script. Version mismatches can cause unexpected issues.
+
+
 ## Usage
 ### 1. Download Hansard Reports
 
