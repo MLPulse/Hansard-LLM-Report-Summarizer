@@ -2,48 +2,66 @@
 
 ## Overview
 
-This repository contains scripts for downloading Hansard reports from the Canadian House of Commons, extracting relevant information, and summarizing it using various large language models (LLMs). It also includes functionality to compare summaries and evaluate them using the ROUGE-L metric.
+The Hansard LLM Report Summarizer is a toolkit designed to automate the process of downloading, processing, summarizing, and analyzing Hansard reports from the Canadian House of Commons. It uses state-of-the-art large language models (LLMs) for generating concise summaries of parliamentary discussions.
 
-### Key Features:
-- Download Hansard reports for specific dates or date ranges.
-- Extract relevant content from PDFs using vector embeddings.
-- Summarize the extracted content with multiple LLMs, including **Mistral 7B**, **Gemma 2 9B**, and **LLaMA 3.1 8B**.
-- Calculate the **ROUGE-L** score to compare generated summaries.
-- Save extracted text and summaries in text files, and generate CSV reports.
+## Features:
+- **Automated Report Download**: Fetch Hansard reports based on specified dates or date ranges.
+- **Text Extraction with Vector Embeddings**: Extract relevant content from PDFs using vector embeddings.
+- **Summarization with LLMs**: Utilize multiple LLMs, including Mistral 7B, Gemma 2 9B, and LLaMA 3.1 8B.
+- **ROUGE-L Evaluation**: Compare generated summaries using ROUGE-L metrics.
+- **Result Storage**: Store both intermediate and final outputs in text and CSV formats.
+
+## Directory Structure
+
+```bash
+Hansard-LLM-Report-Summarizer/
+│
+├── data/                      # Contains raw data
+│   └── .gitkeep
+│
+├── output/                    # Directory for output data
+│   └── .gitkeep
+│
+├── src/                       # Source code directory
+│   ├── hansard_downloader.py  # Script for downloading Hansard reports
+│   ├── main.py                # Main execution script to run the complete workflow
+│   ├── summarization.py       # LLM-based summarization script
+│   ├── text_processing.py     # Script for text extraction and preprocessing
+│   ├── utils.py               # Utility functions used across various modules
+│
+├── .gitignore                 # Specifies files and folders to ignore in Git
+├── README.md                  # Project documentation
+└── requirements.txt           # List of required Python dependencies
+```
+
 
 
 ## Installation
 
-### 1. Clone the repository:
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/yourusername/Hansard-LLM-Report-Summarizer.git
 cd Hansard-LLM-Report-Summarizer   
 ```
-### 2. Install the required libraries using the requirements.txt file:
+### 2. Create and activate a virtual environment
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+### 3. Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
-Required Libraries:
-
-- langchain
-- ollama
-- PyPDF2
-- pdfplumber
-- sentence-transformers
-- nltk
-- torch
-- tqdm
-- rouge_score
     
 ## Usage
 ### 1. Download Hansard Reports
 
-To download Hansard reports for specific dates, use the download_hansard_reports function in the hansard_downloader.py script.
+To download Hansard reports for specific dates:
 ```bash
-python src/hansard_downloader.py
+python src/hansard_downloader.py --date YYYY-MM-DD
 ```
-Example:
+Alternatively, use the following code:
 ```bash
 from datetime import datetime
 download_hansard_reports(datetime(2024, 6, 17), datetime(2024, 6, 19))
@@ -51,11 +69,11 @@ download_hansard_reports(datetime(2024, 6, 17), datetime(2024, 6, 19))
 
 ### 2. Extract and Summarize Reports
 
-Once the Hansard reports are downloaded, use the compare_llm_summaries function from the summarization.py script to extract relevant content based on a specific topic and generate summaries using different LLMs
+To extract content and summarize the downloaded reports:
 ```bash
 python src/main.py
 ```
-Example:
+Example for using specific functions in code:
 ```bash
 topic = "Carbon Tax"
 length = "medium"
@@ -66,23 +84,15 @@ for pdf_path in pdf_files:
 
 ### 3. Save Results to CSV
 
-Use the function save_to_csv in the utils.py to save the generated summaries and ROUGE-L scores into a CSV file.
+To save the generated summaries and ROUGE-L scores into a CSV file:
 ```bash
 python src/main.py --save-results
 ```
 
 ### 4. Evaluate Summaries
 
-To compare summaries with a reference summary, the script also provides functionality to calculate the ROUGE-L F1 score for each model.
-Example:
+To compare summaries with a reference summary and calculate ROUGE-L F1 score:
 ```bash
 reference_summary = """Your reference summary here"""
 compare_llm_summaries_and_save_results(pdf_path, topic, length, reference_summary)
 ```
-### File Structure:
-
-- `hansard_downloader.py`: Handles the downloading of Hansard reports.
-- `text_processing.py`: Extracts text, tokenizes sentences, and creates vector embeddings.
-- `summarization.py`: Contains functions for summarizing text using multiple LLMs.
-- `utils.py`: Utility functions like saving results to CSV and calculating ROUGE-L scores.
-- `main.py`: Main script that integrates all functionalities.
