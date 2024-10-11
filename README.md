@@ -25,7 +25,8 @@ hansard_report_summarizer/
     ├── data_downloader.py        # Script for downloading Hansard reports
     ├── text_extractor.py         # Script for extracting text from downloaded PDFs
     ├── summarizer.py             # Script for generating summaries using language models
-    └── model_comparison.py       # Script for comparing summaries from different models
+    ├── model_comparison.py       # Script for comparing summaries from different models
+    └── utils.py                  # Utility functions
 ```
 
 ## Setup Instructions
