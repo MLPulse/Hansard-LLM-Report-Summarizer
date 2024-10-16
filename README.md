@@ -77,7 +77,7 @@ If you encounter issues while loading a model, check the following:
 ### Download and Summarize Hansard Reports
 Run the main script to download Hansard reports and generate summaries based on a topic of interest:
 ```bash
-python main.py --start_date YYYY-MM-DD --end_date YYYY-MM-DD --topic "Climate change" --summary_length "medium"
+python main.py --start_date YYYY-MM-DD --end_date YYYY-MM-DD --topic "Carbon Tax" --summary_length "medium" --reference_summary "This is a well-crafted reference summary for the topic."
 ```
 
 - **`--start_date`**: Start date of the Hansard report in `YYYY-MM-DD` format (required).
