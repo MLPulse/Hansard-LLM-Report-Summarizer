@@ -18,8 +18,7 @@ hansard_report_summarizer/
 ├── .gitignore                   # Specifies files and folders to ignore in Git
 ├── data/                        # Directory for input/output files (raw or processed data)
 ├── output/                      # Directory for generated outputs (summaries, logs, etc.)
-├── notebooks/                   # Jupyter notebooks for demonstration and experimentation
-│   └── hansard_demo.ipynb       # Demo notebook for the summarization pipeline
+├── hansard_demo.ipynb           # Demo notebook for the summarization pipeline
 │
 └── src/                          # Core scripts for the project
     ├── data_downloader.py        # Script for downloading Hansard reports
