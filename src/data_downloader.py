@@ -62,7 +62,13 @@ def download_hansard_reports(start_date=None, end_date=None):
         # Only one date provided, use it as both the start and end date
         end_date = start_date
     
+    report_paths = []  # List to store the paths of successfully downloaded reports
+    
     current_date = start_date
     while current_date <= end_date:
-        download_hansard_report(current_date)
+        report_path = download_hansard_report(current_date)
+        if report_path:  # If a report was successfully downloaded, add the path to the list
+            report_paths.append(report_path)
         current_date += timedelta(days=1)
+    
+    return report_paths  # Return the list of downloaded report paths
