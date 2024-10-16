@@ -1,11 +1,11 @@
 # Required libraries for the Hansard-LLM-Report-Summarizer project
-requests==2.28.2                 # For making web requests to download reports
-beautifulsoup4==4.12.2           # For web scraping to get sitting-day data
-langchain==0.0.196               # For handling LLM interactions and prompt management
-ollama==0.0.5                    # For integrating with Ollama models
-PyPDF2==3.0.1                    # For extracting text from PDF files
-sentence-transformers==2.2.2     # For embedding-based text extraction
-nltk==3.8.1                      # For natural language processing (if used)
-torch==1.12.1                    # Required by transformers and sentence-transformers
-transformers==4.34.0             # For using pre-trained language models
-rouge-score==0.0.4               # For calculating ROUGE-L scores to evaluate summaries
+requests==2.31                 # For making web requests to download reports
+beautifulsoup4==4.12           # For web scraping to get sitting-day data
+langchain==0.3                 # For handling LLM interactions and prompt management
+ollama==0.3                    # For integrating with Ollama models
+PyPDF2==3.0                    # For extracting text from PDF files
+sentence-transformers==3.2     # For embedding-based text extraction
+nltk==3.8                      # For natural language processing (if used)
+torch==2.1                     # Required by transformers and sentence-transformers
+transformers==4.36             # For using pre-trained language models
+rouge-score==0.1               # For calculating ROUGE-L scores to evaluate summaries
