@@ -1,15 +1,37 @@
 import csv
 from rouge_score import rouge_scorer
+import os
 
-# Function to save the extracted data into a CSV file
-def save_to_csv(data, filename="summary_results.csv"):
-    with open(filename, mode='w', newline='') as file:
+def save_to_csv(data, filename="summary_comparison.csv"):
+    output_dir = "output"
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+    
+    file_path = os.path.join(output_dir, filename)
+    
+    with open(file_path, mode='w', newline='') as file:
         writer = csv.writer(file)
-        # Write the header row
-        writer.writerow(["File Name", "Original Text", "Mistral 7B Summary", "Gemma 2 9B Summary", "LLaMA 3.1 8B Summary", "Avg Summary Length", "ROUGE-L Mistral 7B", "ROUGE-L Gemma 2 9B", "ROUGE-L LLaMA 3.1 8B"])
-        # Write the data
+        
+        # Write the header row (without the File Name)
+        writer.writerow([
+            "Model Name", "Original Text", "Summary", 
+            "Summary Length", "ROUGE-L Score"
+        ])
+        
+        # Write the data rows (only 5 fields now)
         for row in data:
-            writer.writerow(row)
+            if len(row) == 5:  # Ensure that each row contains exactly 5 fields
+                writer.writerow([
+                    row[0],  # Model Name (e.g., Mistral, Gemma, LLaMA)
+                    row[1],  # Original Text
+                    row[2],  # Summary
+                    row[3],  # Summary Length
+                    row[4]   # ROUGE-L Score
+                ])
+            else:
+                print(f"Row has incorrect number of fields: {row}")
+    
+    print(f"Summary results saved to {file_path}")
 
 # Function to calculate ROUGE-L F1 score
 def calculate_rouge_l(reference_summary, generated_summary):
