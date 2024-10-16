@@ -1,27 +1,8 @@
 from langchain.prompts import PromptTemplate
 from langchain.llms import Ollama
 
-# Function to check if a model is available in Ollama
-def check_model_availability(model_name):
-    try:
-        # Execute "ollama list" command to check for available models
-        result = subprocess.run(["ollama", "list"], capture_output=True, text=True)
-        if model_name in result.stdout:
-            print(f"Model '{model_name}' is available.")
-            return True
-        else:
-            print(f"Model '{model_name}' is not available.")
-            return False
-    except Exception as e:
-        print(f"Error checking model availability: {e}")
-        return False
-
 # Function to generate a summary using a specific model
-def summarize_with_model(model_name, text, length, topic, prompt_template):
-    # Check if the model is available
-    if not check_model_availability(model_name):
-        return f"Model '{model_name}' is not available."
-    
+def summarize_with_model(model_name, text, length, topic, prompt_template):    
     # Initialize the LLM
     llm = Ollama(model=model_name)
     
