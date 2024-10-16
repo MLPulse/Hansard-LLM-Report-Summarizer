@@ -40,7 +40,6 @@ def truncate_text(text, max_tokens=4096):
         text = tokenizer.decode(tokens)
     return text
 
-# Function to extract text from a PDF file and optionally use embeddings for topic-based search
 def extract_relevant_text(pdf_path, topic, use_embeddings=False, top_k=5, max_tokens=4096):
     with open(pdf_path, 'rb') as file:
         reader = PyPDF2.PdfReader(file)
@@ -59,16 +58,24 @@ def extract_relevant_text(pdf_path, topic, use_embeddings=False, top_k=5, max_to
         if use_embeddings:
             model = SentenceTransformer('all-MiniLM-L6-v2')  # Example model
             chunk_embeddings = create_embeddings(text_chunks, model)
+            if chunk_embeddings is None:
+                print(f"Failed to create embeddings for {pdf_path}.")
+                return None
+            
             relevant_text = find_relevant_text_by_embedding(topic, text_chunks, chunk_embeddings, model, top_k)
+            if relevant_text is None:
+                print(f"No relevant chunks found for topic '{topic}' in {pdf_path}.")
+                return None
         else:
             # Fallback to simple keyword-based extraction
             relevant_text = ' '.join([chunk for chunk in text_chunks if topic.lower() in chunk.lower()])
         
         if relevant_text:
-            print(f"Relevant text found for topic '{topic}'.")
+            print(f"Relevant text found for topic '{topic}' in {pdf_path}.")
             # Truncate the text if necessary
             truncated_text = truncate_text(relevant_text, max_tokens)
             return truncated_text
         else:
-            print(f"No relevant text found for the topic '{topic}'.")
+            print(f"No relevant text found for the topic '{topic}' in {pdf_path}.")
             return None
+
